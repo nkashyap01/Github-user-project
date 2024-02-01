@@ -4,12 +4,14 @@ import { useRef } from "react";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+
   let BaseURL = "https://api.github.com/users";
   const user = useRef("");
-
+  console.log(BaseURL);
   async function Allusers() {
     const res = await fetch(BaseURL);
     const data = await res.json();
+    console.log(data);
     setUsers(data);
   }
   async function FindUser() {
@@ -39,7 +41,7 @@ const Users = () => {
         />
         <button
           onClick={FindUser}
-          className="bg-teal-500 font-semibold h-full px-4"
+          className="bg-green-600 font-semibold h-full px-4"
         >
           {" "}
           Search

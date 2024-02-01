@@ -20,7 +20,10 @@ const UsersContainer = ({ users }) => {
                 <h1 className="text-sm text-black-300"> {user?.name}</h1>
 
                 <Link to={`/${user?.login}`}>
-                  <button className="bg-teal-400 my-3 px-5"> View</button>
+                  <button className="bg-green-600 my-3 px-5">
+                    {" "}
+                    Show Details
+                  </button>
                 </Link>
               </div>
             )
