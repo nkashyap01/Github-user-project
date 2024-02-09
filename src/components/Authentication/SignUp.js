@@ -17,10 +17,8 @@ const SignUp = () => {
     alert("Registration successfull");
   })  
   .catch((error) => {
-     alert("failed");
+    console.log(error);
   });
-
-    
   }
 
 
@@ -35,7 +33,7 @@ const SignUp = () => {
         <input onChange={(e)=>setpassword(e.target.value)} type="password" value={password} className="text-blue-500"/>
         <button onClick={(e)=>{
           handleRegister(e)
-        }}>Register</button>
+        }} className="relative z-50 m-5">Register</button>
       {/* </form> */}
     </div>
   )
