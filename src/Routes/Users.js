@@ -31,7 +31,7 @@ const Users = () => {
   }, [setUsers]);
 
   return (
-    <div>
+    <div className="bg-black">
       <div className="flex justify-center items-center h-12 my-6">
         <input
           type="text"
