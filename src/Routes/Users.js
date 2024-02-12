@@ -31,8 +31,8 @@ const Users = () => {
   }, [setUsers]);
 
   return (
-    <div className="bg-black">
-      <div className="flex justify-center items-center h-12 my-6">
+    <div className="bg-black pt-4">
+      <div className="flex justify-center items-center h-12">
         <input
           type="text"
           placeholder="search githhub username.."

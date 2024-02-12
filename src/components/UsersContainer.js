@@ -2,9 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const UsersContainer = ({ users }) => {
+
+
   return (
     <div className="flex gap-4 flex-wrap justify-center py-5">
-      {users &&
+      { users && 
         users.map(
           (user, index) =>
             user?.login && (

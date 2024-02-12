@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState} from 'react'
-import {  signInWithEmailAndPassword } from 'firebase/auth';
+import {  signInWithEmailAndPassword,signInWithPopup, GoogleAuthProvider,GithubAuthProvider } from 'firebase/auth';
 import auth from '../../FirebaseConfig';
 import { useNavigate } from 'react-router';
 import { toast } from "react-toastify";
@@ -9,23 +9,72 @@ import { MdOutlineEmail } from "react-icons/md";
 
 import { CiLock } from "react-icons/ci";
 
-const LogIn = () => {
+const SignIn = () => {
   const [email,setemail]=useState("");
   const[password,setpassword]=useState("");
   const navigate=useNavigate();
+
+
+  const provider=new GoogleAuthProvider();
+  const gitprovider=new GithubAuthProvider();
+
+  const handleGithub=()=>{
+    signInWithPopup(auth, gitprovider)
+  .then((result) => {
+    
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+ 
+    const user = result.user;
+    console.log(user);
+    toast.info("You're signed in with github", {
+      position: "top-center",
+    });
+   navigate('/users')
+    
+  }).catch((error) => {
+    toast.error("Failed while login with github", {
+      position: "top-center",
+    });
+     
+  });
+
+
+  }
+
+  const handleGoogle=()=>{
+    signInWithPopup(auth, provider)
+
+  .then((result) => {
+    
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+
+    toast.info("You're signed in with google", {
+      position: "top-center",
+    });
+   navigate('/users')
+    
+  }).catch((error) => {
+    
+    toast.error("Failed while login with google", {
+      position: "top-center",
+    });
+  });
+
+  }
+  
 
   const handleLogin=(e)=>{
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
   .then(() => {
-    toast.success("You're logged in...", {
+    toast.info("You're Signed in...", {
       position: "top-center",
-      theme: "dark",
     });
-   navigate('/');
-
-
+   navigate('/users')
 
   })  
   .catch((error) => {
@@ -53,6 +102,8 @@ const LogIn = () => {
         <button onClick={(e)=>{
           handleLogin(e)
         }} className="relative z-50 m-5 text-white px-[100px]  py-3 bg-blue-600 rounded-md">SignIn</button>
+        <button onClick={()=>handleGoogle()}>Sign in with Google</button>
+        <button onClick={()=>handleGithub()}>Sign in with Github</button>
 
         
       <p> Don't have an account?<span className="text-blue-500"> SignUp</span></p>
@@ -62,4 +113,4 @@ const LogIn = () => {
   )
 }
 
-export default SignIn
+export default SignIn;

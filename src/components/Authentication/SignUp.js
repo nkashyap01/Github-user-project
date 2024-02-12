@@ -4,22 +4,50 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import auth from '../../FirebaseConfig';
 import { FiUser } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { CiLock } from "react-icons/ci";
+import { useNavigate } from 'react-router';
 
 
 const SignUp = () => {
 
+  const navigate=useNavigate();
+
   const [name,setName]=useState("");
   const [email,setemail]=useState("");
   const[password,setpassword]=useState("");
-
+  
   const handleRegister=(e)=>{
     e.preventDefault();
 
+    const isValidEmail=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+    const isValidPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)
+
+    if(!isValidEmail){
+      toast.error("Email is not valid", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    if(!isValidPassword){
+      toast.error("Password is not valid", {
+        position: "top-center",
+      });
+      return;
+    }
+    
+
     createUserWithEmailAndPassword(auth, email, password)
   .then(() => {
-    alert("Registration successfull");
+    
+      toast.info("You're Signed Up...", {
+        position: "top-center",
+      });
+     navigate('/signin')
+
   })  
   .catch((error) => {
     console.log(error);
@@ -37,7 +65,7 @@ const SignUp = () => {
       {/* <form> */}
          <div>
         <FiUser className="relative top-[25px] left-1 text-blue-600 "/>
-        <input onChange={(e)=>setName(e.target.value)} type="text" value={name} className="border border-black rounded pl-7 pr-8 py-1 "  placeholder="Enter Your Name"/>
+        <input onChange={(e)=>setName(e.target.value)} type="text" value={name} className="border border-black rounded pl-7 pr-8 py-1 "  placeholder="Enter Your name"/>
        </div>
        <div>
        <MdOutlineEmail className="relative top-[25px] left-1 text-blue-600 " />
