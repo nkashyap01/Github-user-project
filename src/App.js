@@ -6,7 +6,7 @@ import Users from "./Routes/Users";
 import UserInfo from "./Routes/UserInfo";
 import SignIn from "./components/Authentication/SignIn";
 import SignUp from "./components/Authentication/SignUp";
-import Home from "./components/Authentication/Home";
+ 
 import { ToastContainer } from "react-toastify";
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
             <Route path="/:name" element={<UserInfo />}/>
             <Route path="/signin" element={<SignIn />}/>
             <Route path="/users" element={<Users />}/>
-            <Route path="/home" element={<Home />}/>
+            
       
           </Routes>
         </BrowserRouter>

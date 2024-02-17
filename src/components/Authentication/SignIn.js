@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { MdOutlineEmail } from "react-icons/md";
 
 import { CiLock } from "react-icons/ci";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const SignIn = () => {
   const [email,setemail]=useState("");
@@ -102,8 +104,8 @@ const SignIn = () => {
         <button onClick={(e)=>{
           handleLogin(e)
         }} className="relative z-50 m-5 text-white px-[100px]  py-3 bg-blue-600 rounded-md">SignIn</button>
-        <button onClick={()=>handleGoogle()}>Sign in with Google</button>
-        <button onClick={()=>handleGithub()}>Sign in with Github</button>
+        <button onClick={()=>handleGoogle()}>Sign in with Google <FcGoogle /></button>
+        <button onClick={()=>handleGithub()}>Sign in with Github <FaGithub /> </button>
 
         
       <p> Don't have an account?<span className="text-blue-500"> SignUp</span></p>
