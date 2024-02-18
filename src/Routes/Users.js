@@ -1,34 +1,46 @@
 import React, { useEffect, useState } from "react";
 import UsersContainer from "../components/UsersContainer";
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserInfo } from "../components/store";
+ 
 
 const Users = () => {
   const [users, setUsers] = useState([]);
 
+  const dispatch=useDispatch();
+
+  const name=useSelector((store)=>store.github.name);
+
   let BaseURL = "https://api.github.com/users";
   const user = useRef("");
-  console.log(BaseURL);
+
   async function Allusers() {
     const res = await fetch(BaseURL);
     const data = await res.json();
     console.log(data);
     setUsers(data);
   }
+
   async function FindUser() {
-    if (user.current.value !== "") {
+    // if (user.current.value !== "") {
       setUsers("");
-      const res = await fetch(BaseURL + "/" + user.current.value);
+      const res = await fetch(BaseURL + "/"+name);
       const data = await res.json();
+
+      dispatch(setUserInfo(data));
+
       setUsers(() => [data]);
       user.current.value = "";
-    } else {
-      Allusers();
-    }
+    // } else {
+      // Allusers();
+    // }
   }
 
   useEffect(() => {
-    Allusers();
-  }, [setUsers]);
+    // Allusers();
+    FindUser();
+  }, []);
 
   return (
     <div className="bg-black pt-4">
@@ -48,6 +60,8 @@ const Users = () => {
         </button>
       </div>
       <UsersContainer users={users} />
+
+    
     </div>
   );
 };

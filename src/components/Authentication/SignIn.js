@@ -10,11 +10,16 @@ import { MdOutlineEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { setName } from '../store';
 
 const SignIn = () => {
   const [email,setemail]=useState("");
   const[password,setpassword]=useState("");
   const navigate=useNavigate();
+  const name=useSelector((store)=> store.github.name)
+
+  const dispatch=useDispatch();
 
 
   const provider=new GoogleAuthProvider();
@@ -28,7 +33,11 @@ const SignIn = () => {
     const token = credential.accessToken;
  
     const user = result.user;
-    console.log(user);
+
+
+    dispatch(setName(user.reloadUserInfo.screenName))
+
+
     toast.info("You're signed in with github", {
       position: "top-center",
     });
@@ -86,11 +95,12 @@ const SignIn = () => {
 
 
   return (
-    <div className=" flex justify-around">
+    <div className=" flex justify-around items-center">
     <div>
+      <h1> {name}</h1>
     <img src=" https://github.blog/wp-content/uploads/2019/05/facebook-1200x630-final.png?fit=1200%2C630" className="h-[80vh] w-[100vh]"/>
   </div>
-    <div className='flex h-screen justify-center items-center flex-col'>
+    <div className=' logindiv flex  h-[60vh] justify-center items-center flex-col shadow-2xl  '>
       {/* <form> */}
         <div>
         <MdOutlineEmail className="relative top-[25px] left-1 text-blue-600 " />
@@ -104,8 +114,8 @@ const SignIn = () => {
         <button onClick={(e)=>{
           handleLogin(e)
         }} className="relative z-50 m-5 text-white px-[100px]  py-3 bg-blue-600 rounded-md">SignIn</button>
-        <button onClick={()=>handleGoogle()}>Sign in with Google <FcGoogle /></button>
-        <button onClick={()=>handleGithub()}>Sign in with Github <FaGithub /> </button>
+        <button className="border border-black   px-[40px] rounded-md py-2" onClick={()=>handleGoogle()}><FcGoogle className="inline mr-2 text-xl " />Sign in with Google </button>
+        <button className="border border-black mt-3  px-[40px] rounded-md py-2"onClick={()=>handleGithub()}><FaGithub className="inline mr-2 text-xl"  /> Sign in with Github  </button>
 
         
       <p> Don't have an account?<span className="text-blue-500"> SignUp</span></p>
