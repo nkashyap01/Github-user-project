@@ -15,24 +15,17 @@ import MainPage from "./components/UserDetails/MainPage";
 
 const App = () => {
   return (
-    // <Provider store={appStore}>
-    //     <Logo />
-    //     <BrowserRouter>
-    //       <Routes>
-    //         <Route path="/" element={<SignUp />}/>
-    //         <Route path="/:name" element={<UserInfo />}/>
-    //         <Route path="/signin" element={<SignIn />}/>
-    //         <Route path="/users" element={<Users />}/>
-            
+   <Provider store={appStore}>
+     <Logo/>
+     <BrowserRouter>
+     <Routes>
+      <Route path="/" element={<SignUp/>}/>
+      <Route path="/signin" element={<SignIn/>} />
+      <Route path="/users" element={<Users/>}/>
       
-    //       </Routes>
-    //     </BrowserRouter>
-    //     <ToastContainer autoClose={2000} />
-    //     </Provider> 
-    <div>
-      <Heading/>
-      <MainPage/>
-    </div>
+     </Routes>
+     </BrowserRouter>
+   </Provider>
   );
 };
 

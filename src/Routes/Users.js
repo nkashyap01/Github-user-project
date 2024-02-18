@@ -7,39 +7,34 @@ import { setUserInfo } from "../components/store";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-
   const dispatch=useDispatch();
-
   const name=useSelector((store)=>store.github.name);
 
-  let BaseURL = "https://api.github.com/users";
+  const BaseURL = "https://api.github.com/users";
   const user = useRef("");
 
-  async function Allusers() {
+  const allusers=async()=> {
     const res = await fetch(BaseURL);
     const data = await res.json();
-    console.log(data);
+
     setUsers(data);
   }
 
-  async function FindUser() {
-    // if (user.current.value !== "") {
-      setUsers("");
-      const res = await fetch(BaseURL + "/"+name);
+  const findUser=async()=> {
+
+    if(user.current.value==""){
+      allusers();
+    }else{
+      const res = await fetch(BaseURL + "/"+user.current.value);
       const data = await res.json();
+      setUsers(data);
+    }
 
-      dispatch(setUserInfo(data));
-
-      setUsers(() => [data]);
-      user.current.value = "";
-    // } else {
-      // Allusers();
-    // }
   }
 
+  
   useEffect(() => {
-    // Allusers();
-    FindUser();
+    findUser();
   }, []);
 
   return (
@@ -52,7 +47,7 @@ const Users = () => {
           ref={user}
         />
         <button
-          onClick={FindUser}
+          onClick={findUser}
           className="bg-blue-600 font-semibold h-full px-4"
         >
           {" "}

@@ -22,22 +22,22 @@ const SignUp = () => {
   const handleRegister=(e)=>{
     e.preventDefault();
 
-    const isValidEmail=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
-    const isValidPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)
+    // const isValidEmail=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+    // const isValidPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)
 
-    if(!isValidEmail){
-      toast.error("Email is not valid", {
-        position: "top-center",
-      });
-      return;
-    }
+    // if(!isValidEmail){
+    //   toast.error("Email is not valid", {
+    //     position: "top-center",
+    //   });
+    //   return;
+    // }
 
-    if(!isValidPassword){
-      toast.error("Password is not valid", {
-        position: "top-center",
-      });
-      return;
-    }
+    // if(!isValidPassword){
+    //   toast.error("Password is not valid", {
+    //     position: "top-center",
+    //   });
+    //   return;
+    // }
     
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -46,6 +46,7 @@ const SignUp = () => {
       toast.info("You're Signed Up...", {
         position: "top-center",
       });
+      
      navigate('/signin')
 
   })  

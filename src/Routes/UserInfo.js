@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  let BaseURL = "https://api.github.com/users";
+  let BaseURL = "https://api.github.com/users/";
 
   async function GetUserInfo() {
-    const res = await fetch(BaseURL + pathname);
+    const res = await fetch(BaseURL + "nkashyap01");
     const data = await res.json();
     setUser(() => [data]);
-    console.log(data);
+   
   }
 
   useEffect(() => {
     GetUserInfo();
-  }, [pathname]);
+  }, []);
 
   return (
     <div className="py-5 px-5">
