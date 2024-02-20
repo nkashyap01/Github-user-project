@@ -24,8 +24,8 @@ const UsersContainer = ({ users }) => {
                 </h1>
                 <h1 className="text-sm text-gray-600 mb-3"> {user?.name}</h1>
 
-                <Link to={`/${user?.login}`}>
-                  <button className="bg-blue-600 my-3 px-5">
+                <Link to="/userinfo">
+                  <button className="bg-blue-600 my-3 px-5  ">
                     {" "}
                     Show Details
                   </button>

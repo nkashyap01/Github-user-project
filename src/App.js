@@ -1,12 +1,10 @@
-// import React from "react";
-
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Logo from "./components/Logo";
 import Users from "./Routes/Users";
 import UserInfo from "./Routes/UserInfo";
 import SignIn from "./components/Authentication/SignIn";
 import SignUp from "./components/Authentication/SignUp";
- 
+
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import appStore from "./components/store";
@@ -15,17 +13,18 @@ import MainPage from "./components/UserDetails/MainPage";
 
 const App = () => {
   return (
-   <Provider store={appStore}>
-     <Logo/>
-     <BrowserRouter>
-     <Routes>
-      <Route path="/" element={<SignUp/>}/>
-      <Route path="/signin" element={<SignIn/>} />
-      <Route path="/users" element={<Users/>}/>
-      
-     </Routes>
-     </BrowserRouter>
-   </Provider>
+    <Provider store={appStore}>
+      <Logo />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/users" element={<Users />} />
+           <Route path="/userinfo" element={<UserInfo/>} />
+          <Route path="/mainpage" element={<MainPage />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 };
 
