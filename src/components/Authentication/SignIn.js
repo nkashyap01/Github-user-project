@@ -37,7 +37,10 @@ const SignIn = () => {
 
         const user = result.user;
 
-        dispatch(setName(user.reloadUserInfo.screenName));
+        // dispatch(setName(user.reloadUserInfo.screenName));
+
+        sessionStorage.setItem('name',user.reloadUserInfo.screenName);
+
 
         navigate("/mainpage");
 

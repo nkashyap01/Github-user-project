@@ -7,26 +7,109 @@ import { ReactComponent as RepoIcon } from "./Assests/repoicon.svg";
 import Heading from "./Heading";
 import { useSelector } from "react-redux";
 import RepoDetails from "./RepoDetails";
+import Select from 'react-select';
 
 const MainPage = () => {
   const BaseURL = "https://api.github.com/users";
 
   const [users, setUsers] = useState(null);
   const [repo, setRepos] = useState(null);
+  const [copyRepo,setCopyRepo]=useState(null);
+  const [searchText,setSearchText]=useState(null);
 
-  const name = useSelector((store) => store.github.name);
+  const [selectedOption,setSelectedOption]=useState(null);
+  
+  const [sortSelectedOption,setSortSelectedOption]=useState(null);
+
+  const handleChange=(selectedOption)=>{
+
+      
+    const filterData = copyRepo.filter((ele) => {
+
+      if(!ele.language) return false;
+
+     return  ele.language==selectedOption.value;
+
+      
+    }); 
+
+
+    setRepos(filterData);
+
+  }
+
+  const sortHandleChange = (sortSelectedOption) => {
+    const sortBy = sortSelectedOption.value;
+    
+    // Sort the repo array based on the selected option
+    const sortedRepo = [...repo].sort((a, b) => {
+      if (sortBy === 'updated_at') {
+        return new Date(b.updated_at) - new Date(a.updated_at);
+      } else if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      }
+      return 0;
+    });
+  
+    // Update the state with the sorted result
+    setRepos(sortedRepo);
+  };
+  
+
+  const sortOptions=[{
+    value:"updated_at",label:"Last Updated"
+  },{
+    value:"name",label:"Name",
+  }];
+
+
+  const options=[{
+    value:"JavaScript",label:"JavaScript"
+  },
+{
+  value:"HTML", label:"HTML"
+},
+{
+  value:"CSS", label:"CSS"
+},
+{
+  value:"C", label:"C"
+},
+{
+  value:"C++", label:"C++"
+},
+{
+  value:"JAVA", label:"JAVA"
+},
+]
+
+ 
+
+  const filterRepo=async(value)=>{
+
+    const filterData=copyRepo.filter((ele)=>{
+      return ele.name.toLowerCase().includes(value.toLowerCase());
+    })
+
+    setRepos(filterData);
+
+  }
+
+
 
   const fetchRepos = async () => {
-    const res = await fetch(`https://api.github.com/users/${name}/repos`);
+    const res = await fetch(`https://api.github.com/users/${sessionStorage.getItem('name')}/repos`);
     const data = await res.json();
-    console.log(data);
+    
     setRepos(data);
+    setCopyRepo(data);
   };
 
+
   const findUser = async () => {
-    const res = await fetch(BaseURL + "/" + name);
+    const res = await fetch(BaseURL + "/" + sessionStorage.getItem('name'));
     const data = await res.json();
-    console.log(data);
+    
     setUsers(data);
 
     fetchRepos();
@@ -36,7 +119,7 @@ const MainPage = () => {
     findUser();
   }, []);
 
-  if (!users || !repo) return;
+  if (!users || !repo || !copyRepo) return;
 
   const {
     name: username,
@@ -50,7 +133,7 @@ const MainPage = () => {
   } = users;
 
   return (
-    <>
+    <div className="absolute top-0">
       <Heading avatarUrl={avatar_url} publicRepos={public_repos} />
 
       <div className="min-h-screen bg-[#0A0C10] pt-10 px-20 flex">
@@ -84,6 +167,11 @@ const MainPage = () => {
         <div className="w-8/12 ">
           <div className="flex gap-2">
             <input
+              onChange={(e)=>{
+                setSearchText(e.target.value);
+
+                filterRepo(e.target.value);
+              }}
               type="text"
               placeholder="Find a repository... "
               className="border border-white w-[500px] rounded-md bg-[#0A0C10] pl-4 h-8 flex items-center text-white"
@@ -92,20 +180,39 @@ const MainPage = () => {
               <p> Type</p>
               <IoMdArrowDropdown />
             </div>
-            <div className="text-sm  rounded-md text-white border border-white px-2 gap-2 flex items-center justify-center font-semibold">
-              <p> Language</p>
-              <IoMdArrowDropdown />
-            </div>
-            <div className="text-sm  rounded-md text-white border border-white px-2 gap-2 flex items-center justify-center font-semibold">
-              <p> Sort</p>
-              <IoMdArrowDropdown />
-            </div>
+           
+            <Select 
+        value={selectedOption}
+        onChange={handleChange}
+        options={options}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            backgroundColor:"black",
+           
+          }),
+        }}
+       
+      />
+              <Select 
+        value={sortSelectedOption}
+        onChange={sortHandleChange}
+        options={sortOptions}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            backgroundColor:"black",
+           
+          }),
+        }}
+       
+      />
             <div className="text-sm  rounded-md text-black  px-2 gap-1 flex items-center justify-center font-semibold bg-[#26CD4D]">
               <RepoIcon className="fill-black" />
               <p> New</p>
             </div>
           </div>
-            {
+            { 
               repo.map(({updated_at,name, language})=>{
                 return <RepoDetails updated_at={updated_at} name={name} language={language}/>
               })
@@ -113,7 +220,7 @@ const MainPage = () => {
         </div>
 
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const UserInfo = () => {
   const [user, setUser] = useState();
-  const { pathname } = useLocation();
+ 
   const navigate = useNavigate();
   let BaseURL = "https://api.github.com/users/";
 
+
+  const {id}=useParams();
+
   async function GetUserInfo() {
-    const res = await fetch(BaseURL + "nkashyap01");
+    const res = await fetch(BaseURL +id);
     const data = await res.json();
+
+
+  console.log(data);
+
     setUser(() => [data]);
    
   }
