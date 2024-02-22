@@ -17,6 +17,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "../store";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const SignIn = () => {
   const [email, setemail] = useState("");
@@ -85,39 +86,47 @@ const SignIn = () => {
         navigate("/users");
       })
       .catch((error) => {
-        console.log(error);
-      });
+        
+      })
   };
 
   return (
-    <div className=" flex justify-around items-center">
-      <div>
-        <h1> {name}</h1>
-        <img
-          src=" https://github.blog/wp-content/uploads/2019/05/facebook-1200x630-final.png?fit=1200%2C630"
-          className="h-[80vh] w-[100vh]"
-        />
+    <div className=" flex justify-around items-center bg-[#0D1117] ">
+      
+      <div className=" w-8/12 h-[88vh] text-white justify-center flex items-center flex-col ">
+      <h1 className="text-8xl font-medium"> Let's build from here
+</h1>
+<p className="text-gray-500 text-3xl pt-6">The world's leading AI-powered developer platform.</p> 
+<div className="pt-24 flex">
+
+  <input type="text" placeholder="djfdf@gmail.com" className="py-3 px-11 rounded-l-md text-black placeholder-black"/>
+  <button className="bg-[#7D43C4] text-white font-bold py-3 px-7 rounded-r-md text-md"> Sign Up for GitHub</button>
+  <button className="    ml-9 py-3 px-8 text-white border border-[#7D43C4] rounded-md font-bold"> Start a free enterprise trial</button>
+  < MdKeyboardArrowRight className="relative top-[14px] text-2xl right-8 font-semibold"/>
+</div>
+
+         
       </div>
-      <div className=" logindiv flex    justify-center items-center flex-col shadow-2xl py-3 ">
+      <div className=" logindiv flex    justify-center items-center flex-col  py-3 bg-[#283042]">
         {/* <form> */}
         <div>
-          <MdOutlineEmail className="relative top-[25px] left-1 text-blue-600 " />
+          <MdOutlineEmail className="relative top-[29px] left-1 text-[#783FC7] " />
 
           <input
             onChange={(e) => setemail(e.target.value)}
             type="text"
             value={email}
-            className="pl-7 pr-8 py-1  border border-black rounded"
+            className="pl-7 pr-8 py-2 px-[40px]  border border-[#783FC7] rounded text-white outline-none placeholder-white  bg-transparent"
             placeholder="Enter your mail"
           />
         </div>
-        <div>
-          <CiLock className="relative top-[25px] left-1  text-blue-900 " />
+        <div className="">
+          <CiLock className="relative top-[29px] left-1  text-[#783FC7] " />
           <input
             onChange={(e) => setpassword(e.target.value)}
             type="password"
             value={password}
-            className="pl-7 pr-8 py-1 border border-black rounded"
+            className="pl-7 pr-8 py-2 px-[40px] border border-[#783FC7] rounded text-white outline-none placeholder-white bg-transparent"
             placeholder="Type your Password"
           />
         </div>
@@ -125,29 +134,29 @@ const SignIn = () => {
           onClick={(e) => {
             handleLogin(e);
           }}
-          className="relative z-50 m-5 text-white px-[100px]  py-3 bg-blue-600 rounded-md"
+          className="relative z-50 m-5 text-white px-[100px]  py-3 bg-[#783FC7] rounded-md"
         >
           SignIn
         </button>
 
-        <p>
+        <p className="text-white">
           {" "}
-          Don't have an account?<span className="text-blue-500"> SignUp</span>
+          Don't have an account?<span className="text-[#783FC7]"> SignUp</span>
         </p>
-        <p className=" border-gray-400  py-3"> or</p>
+        <p className=" border-gray-400  py-3 font-semibold"> or</p>
 
         <button
-          className="border-none text-white mt-3  px-[40px] rounded-md py-2 bg-blue-600"
+          className="border-none text-white mt-3  px-[40px] rounded-md py-2 bg-[#783FC7]"
           onClick={() => handleGithub()}
         >
           <FaGithub className="inline mr-2 text-xl" /> Sign in with Github{" "}
         </button>
 
         <button
-          className="border border-black   px-[40px] rounded-md py-2 mt-3"
+          className="border border-[#783FC7]   px-[40px] rounded-md py-2 mt-3 text-white"
           onClick={() => handleGoogle()}
         >
-          <FcGoogle className="inline mr-2 text-xl " />
+          <FcGoogle className="inline mr-2 text-xl  " />
           Sign in with Google{" "}
         </button>
        

@@ -46,7 +46,7 @@ const SignUp = () => {
         navigate("/signin");
       })
       .catch((error) => {
-        console.log(error);
+       
       });
   };
 
@@ -63,36 +63,36 @@ const SignUp = () => {
             className="h-[80vh] w-[100vh]"
           />
         </div>
-        <div className="signdiv flex  justify-center items-center flex-col py-3 ">
+        <div className="signdiv flex  justify-center items-center flex-col py-3 bg-[#283042] ">
           {/* <form> */}
           <div>
-            <FiUser className="relative top-[25px] left-1 text-blue-600 " />
+            <FiUser className="relative top-[25px] left-1 text-[#8144C5] " />
             <input
               onChange={(e) => setName(e.target.value)}
               type="text"
               value={name}
-              className="border border-black rounded pl-7 pr-8 py-1 "
+              className="border border-[#8144C5] rounded pl-7 pr-8 py-1 bg-transparent placeholder-white "
               placeholder="Enter Your name"
             />
           </div>
           <div>
-            <MdOutlineEmail className="relative top-[25px] left-1 text-blue-600 " />
+            <MdOutlineEmail className="relative top-[25px] left-1 text-[#8144C5] " />
             <input
               onChange={(e) => setemail(e.target.value)}
               type="text"
               value={email}
-              className="pl-7 pr-8 py-1  border border-black rounded"
+              className="pl-7 pr-8 py-1  border border-[#8144C5] rounded bg-transparent placeholder-white"
               placeholder="Enter your mail"
             />
           </div>
           <div>
-            <CiLock className="relative top-[25px] left-1  text-blue-900 text-md font-bold " />
+            <CiLock className="relative top-[25px] left-1  text-[#8144C5] text-md font-bold " />
 
             <input
               onChange={(e) => setpassword(e.target.value)}
               type="password"
               value={password}
-              className="pl-7 pr-8 py-1 border border-black rounded"
+              className="pl-7 pr-8 py-1 border border-[#8144C5] rounded bg-transparent placeholder-white"
               placeholder="create your Password"
             />
           </div>
@@ -100,7 +100,7 @@ const SignUp = () => {
             onClick={(e) => {
               handleRegister(e);
             }}
-            className="relative z-50 m-5 text-white px-[100px]  py-3 bg-blue-600 rounded-md "
+            className="relative z-50 m-5 text-white px-[100px]  py-3 bg-[#8144C5] rounded-md "
           >
             SignUp
           </button>
@@ -111,7 +111,7 @@ const SignUp = () => {
           <p>
             {" "}
             Already have an account?
-            <span onClick={() => switchToSignin()} className="text-blue-500">
+            <span onClick={() => switchToSignin()} className="text-[#8144C5]">
               {" "}
               SignIn
             </span>

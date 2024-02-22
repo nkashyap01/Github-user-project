@@ -15,9 +15,14 @@ const Users = () => {
 
   const findUser = async () => {
     if (user.current.value == "") {
-      const res = await fetch(BaseURL);
+      try{
+        const res = await fetch(BaseURL);
       const data = await res.json();
       setUsers(data);
+      }catch(error){
+        console.log(error);
+      }
+     
     } else {
       const res = await fetch(BaseURL + "/" + user.current.value);
       const data = await res.json();
@@ -30,17 +35,17 @@ const Users = () => {
   }, []);
 
   return (
-    <div className="bg-black pt-4">
+    <div className="bg-[#0D1117] pt-4">
       <div className="flex justify-center items-center h-12">
         <input
           type="text"
           placeholder="search githhub username.."
-          className="h-full  w-[400px] text-gray-500 px-6 font-semibold outline-none"
+          className="h-full rounded-l-md w-[400px] text-white px-6 font-semibold outline-none bg-[#283042]"
           ref={user}
         />
         <button
           onClick={findUser}
-          className="bg-blue-600 font-semibold h-full px-4"
+          className="bg-[#8044C4] text-white font-semibold h-full px-4 rounded-r-md"
         >
           {" "}
           Search

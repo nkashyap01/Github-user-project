@@ -1,13 +1,34 @@
 import React from "react";
-
+import { FaGithub } from "react-icons/fa";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { CiSearch } from "react-icons/ci";
+import {ReactComponent as Searchslash} from "././UserDetails/Assests/searchslash.svg";
 const Logo = () => {
   return (
-    <div className="bg-black flex pb-2 justify-center items-center border-b-2 border-gray-500 ">
-      <img
-        src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
-        className="w-24 rounded-full"
-      ></img>
-      <h1 className="text-2xl px-2 first-letter:text-5xl text-white">GitHub Users</h1>
+    <div className="p-5 flex justify-between items-center bg-[#0D1117] text-white">
+<div className="flex font-semibold gap-4  items-center">
+ <FaGithub className="text-3xl"/>
+  <p>Product <RiArrowDropDownLine className="inline -ml-1 text-2xl"/></p>
+  <p>Solution <RiArrowDropDownLine className="inline -ml-1 text-2xl"/></p>
+  <p>Open Source <RiArrowDropDownLine className="inline -ml-1 text-2xl"/></p>
+  <p>Pricing  </p>
+  
+ 
+</div>
+
+<div className="flex gap-3" >
+  <div className="flex items-center border border-white px-10 py-[3px] bg-[#283041] text-white rounded-md  ">
+  <CiSearch/>
+  <input type="text" placeholder="Search or Jump to..." className="mx-1 bg-[#283041]"/>
+  <Searchslash/>
+
+  </div>
+
+  <button> Sign in</button>
+  <button className="border border-white rounded-md px-2 py-1"> Sign up</button>
+
+
+</div>
     </div>
   );
 };
