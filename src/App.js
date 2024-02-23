@@ -10,15 +10,17 @@ import { Provider } from "react-redux";
 import appStore from "./components/store";
 import Heading from "./components/UserDetails/Heading";
 import MainPage from "./components/UserDetails/MainPage";
+import HomePage from "./components/Authentication/HomePage";
 
 const App = () => {
   return (
     <Provider store={appStore}>
-      <Logo />
+     
       <BrowserRouter>
+      <Logo />
         <Routes>
-          <Route path="/" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/" element={<HomePage />} />
+          
           <Route path="/users" element={<Users />} />
            <Route path="/users/:username"  element={<UserInfo/>} />
           <Route path="/mainpage" element={<MainPage />} />

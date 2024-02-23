@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoSearchSharp } from "react-icons/io5";
@@ -14,8 +14,26 @@ import { ReactComponent as RepoIcon } from "./Assests/repoicon.svg";
 import { ReactComponent as PackageIcon } from "./Assests/packageicon.svg";
 import { ReactComponent as StarsIcon } from "./Assests/staricon.svg";
 import { ReactComponent as OverviewIcon } from "./Assests/overviewicon.svg";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../store";
 
-const Heading = ({ publicRepos, avatarUrl }) => {
+const Heading = ({ publicRepos, avatarUrl,username }) => {
+
+  const [searchText,setSearchText]=useState(null);
+
+  const dispatch=useDispatch();
+
+  const fetchUserInfo=async()=>{
+     const data= await fetch("https://api.github.com/users/"+searchText);
+     const json=await data.json();
+
+     dispatch(setUserInfo(json));
+
+     sessionStorage.setItem('name',json.login)
+
+  }
+
+
   return (
     <div className="bg-[#0A0C10] border-b border-white p-3">
       <div className="flex justify-between items-center   ">
@@ -24,17 +42,23 @@ const Heading = ({ publicRepos, avatarUrl }) => {
             <RxHamburgerMenu className="text-2xl " />
           </div>
           <FaGithub className="text-4xl " />
-          <p className="semi-bold  "> nkashyap01</p>
+          <p className="semi-bold  "> {username}</p>
         </div>
 
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center">
             <IoSearchSharp className="relative left-6  text-md text-white" />
             <input
+            onChange={(e)=>setSearchText(e.target.value)}
+              onKeyDown={(e)=>{
+                if(e.key=="Enter"){
+                  fetchUserInfo();
+                }
+              }}
               type="text"
               placeholder="Type / to search"
-              className="rounded-md border border-white bg-[#0A0C10] pl-8  py-1 w-[300px]"
-            ></input>
+              className="rounded-md border border-white bg-[#0A0C10] pl-8  py-1 w-[300px] text-white"
+           /> 
 
             <div className="flex border-l border-white text-white relative -left-8 items-center pl-1">
               <FaChevronRight />

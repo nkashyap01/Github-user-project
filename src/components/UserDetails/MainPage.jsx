@@ -5,14 +5,16 @@ import { ReactComponent as GithubIcon } from "./Assests/githubicon.svg";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { ReactComponent as RepoIcon } from "./Assests/repoicon.svg";
 import Heading from "./Heading";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RepoDetails from "./RepoDetails";
 import Select from 'react-select';
+import { setUserInfo } from "../store";
 
 const MainPage = () => {
   const BaseURL = "https://api.github.com/users";
 
-  const [users, setUsers] = useState(null);
+  const dispatch=useDispatch();
+ 
   const [repo, setRepos] = useState(null);
   const [copyRepo,setCopyRepo]=useState(null);
   const [searchText,setSearchText]=useState(null);
@@ -110,37 +112,43 @@ const MainPage = () => {
     const res = await fetch(BaseURL + "/" + sessionStorage.getItem('name'));
     const data = await res.json();
     
-    setUsers(data);
+    dispatch(setUserInfo(data));
 
-    fetchRepos();
+    // fetchRepos();
   };
+  
+  const users=useSelector((store)=>store.github.userInfo);
 
   useEffect(() => {
     findUser();
-  }, []);
+    fetchRepos();
+  }, [users]);
+
+
 
   if (!users || !repo || !copyRepo) return;
 
   const {
-    name: username,
+    login: username,
     bio,
     followers,
     following,
     avatar_url,
     html_url,
+    name,
     location,
     public_repos,
   } = users;
 
   return (
     <div className="absolute top-0">
-      <Heading avatarUrl={avatar_url} publicRepos={public_repos} />
+      <Heading username={username}  avatarUrl={avatar_url} publicRepos={public_repos} />
 
       <div className="min-h-screen bg-[#0A0C10] pt-10 px-20 flex">
         <div className="w-4/12 text-white  ">
           <img src={avatar_url} className="h-[300px] w-[300px] rounded-full" />
           <h1 className="text-2xl"> {username}</h1>
-          <h3> NKashyap01</h3>
+          <h3> {name}</h3>
           <p className="mt-3">{bio}</p>
 
           <button className=" mt-3 w-[320px] h-[30px] flex justify-center items-center bg-[#525964] border border-white rounded-md">

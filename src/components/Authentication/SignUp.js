@@ -56,14 +56,9 @@ const SignUp = () => {
 
   return (
   
-      <div className=" flex justify-around items-center">
-        <div>
-          <img
-            src=" https://github.blog/wp-content/uploads/2019/05/facebook-1200x630-final.png?fit=1200%2C630"
-            className="h-[80vh] w-[100vh]"
-          />
-        </div>
-        <div className="signdiv flex  justify-center items-center flex-col py-3 bg-[#283042] ">
+      <div className=" flex justify-around items-center ml-8 -mt-32 ">
+         
+        <div className="signdiv flex  justify-center items-center flex-col py-3 bg-[#283042] rounded-sm">
           {/* <form> */}
           <div>
             <FiUser className="relative top-[25px] left-1 text-[#8144C5] " />
@@ -106,9 +101,13 @@ const SignUp = () => {
           </button>
           {/* </form> */}
 
-          <p> or</p>
+         <div className="flex items-center justify-center"> 
+          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
+          <p  className="px-1 text-white"> or</p>
+          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
+          </div>
 
-          <p>
+          <p className="text-white">
             {" "}
             Already have an account?
             <span onClick={() => switchToSignin()} className="text-[#8144C5]">

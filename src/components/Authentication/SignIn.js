@@ -17,7 +17,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "../store";
-import { MdKeyboardArrowRight } from "react-icons/md";
+
 
 const SignIn = () => {
   const [email, setemail] = useState("");
@@ -41,7 +41,7 @@ const SignIn = () => {
         // dispatch(setName(user.reloadUserInfo.screenName));
 
         sessionStorage.setItem('name',user.reloadUserInfo.screenName);
-
+        sessionStorage.setItem("isShowHeader",false)
 
         navigate("/mainpage");
 
@@ -67,6 +67,7 @@ const SignIn = () => {
           position: "top-center",
         });
         navigate("/users");
+        sessionStorage.setItem("isShowHeader",false)
       })
       .catch((error) => {
         toast.error("Failed while login with google", {
@@ -83,6 +84,7 @@ const SignIn = () => {
         toast.info("You're Signed in...", {
           position: "top-center",
         });
+        sessionStorage.setItem("isShowHeader",false)
         navigate("/users");
       })
       .catch((error) => {
@@ -91,23 +93,10 @@ const SignIn = () => {
   };
 
   return (
-    <div className=" flex justify-around items-center bg-[#0D1117] ">
+    <div className=" flex justify-around items-center  ">
       
-      <div className=" w-8/12 h-[88vh] text-white justify-center flex items-center flex-col ">
-      <h1 className="text-8xl font-medium"> Let's build from here
-</h1>
-<p className="text-gray-500 text-3xl pt-6">The world's leading AI-powered developer platform.</p> 
-<div className="pt-24 flex">
-
-  <input type="text" placeholder="djfdf@gmail.com" className="py-3 px-11 rounded-l-md text-black placeholder-black"/>
-  <button className="bg-[#7D43C4] text-white font-bold py-3 px-7 rounded-r-md text-md"> Sign Up for GitHub</button>
-  <button className="    ml-9 py-3 px-8 text-white border border-[#7D43C4] rounded-md font-bold"> Start a free enterprise trial</button>
-  < MdKeyboardArrowRight className="relative top-[14px] text-2xl right-8 font-semibold"/>
-</div>
-
-         
-      </div>
-      <div className=" logindiv flex    justify-center items-center flex-col  py-3 bg-[#283042]">
+      
+      <div className=" logindiv flex    justify-center items-center flex-col  py-3 bg-[#283042] ml-8 -mt-32 rounded-sm">
         {/* <form> */}
         <div>
           <MdOutlineEmail className="relative top-[29px] left-1 text-[#783FC7] " />
@@ -143,7 +132,11 @@ const SignIn = () => {
           {" "}
           Don't have an account?<span className="text-[#783FC7]"> SignUp</span>
         </p>
-        <p className=" border-gray-400  py-3 font-semibold"> or</p>
+        <div className="flex items-center justify-center"> 
+          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
+          <p  className="px-1 text-white"> or</p>
+          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
+          </div>
 
         <button
           className="border-none text-white mt-3  px-[40px] rounded-md py-2 bg-[#783FC7]"

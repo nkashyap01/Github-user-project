@@ -6,6 +6,9 @@ const appSlice = createSlice({
   initialState: {
     name: null,
     userInfo:null,
+    isShowSignup:false,
+    isShowSignin:false,
+  
   },
   reducers: {
     setName: (state, action) => {
@@ -13,7 +16,14 @@ const appSlice = createSlice({
     },
     setUserInfo:(state,action)=>{
       state.userInfo=action.payload;
-    }
+    },
+    setIsShowSignup:(state,action)=>{
+      state.isShowSignup=action.payload;
+    },
+    setIsShowSignin:(state,action)=>{
+      state.isShowSignin=action.payload;
+    },
+   
   },
 });
 
@@ -25,4 +35,4 @@ const appStore = configureStore({
 });
 
 export default appStore;
-export const {  setName,setUserInfo } = appSlice.actions;
+export const {  setName,setUserInfo,setIsShowSignup,setIsShowSignin } = appSlice.actions;

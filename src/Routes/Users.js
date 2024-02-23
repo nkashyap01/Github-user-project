@@ -35,7 +35,7 @@ const Users = () => {
   }, []);
 
   return (
-    <div className="bg-[#0D1117] pt-4">
+    <div className="bg-[#0D1117] min-h-[85vh] pt-4">
       <div className="flex justify-center items-center h-12">
         <input
           type="text"
@@ -51,7 +51,9 @@ const Users = () => {
           Search
         </button>
       </div>
+      <div className="flex items-center justify-center min-h-[60vh] bg-[#0D1117]">
       <UsersContainer users={users} />
+      </div>
     </div>
   );
 };
