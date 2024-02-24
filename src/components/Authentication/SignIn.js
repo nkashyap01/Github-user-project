@@ -36,12 +36,10 @@ const SignIn = () => {
         const credential = GithubAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
 
-        const user = result.user;
-
-        // dispatch(setName(user.reloadUserInfo.screenName));
+        const user = result.user
 
         sessionStorage.setItem('name',user.reloadUserInfo.screenName);
-        sessionStorage.setItem("isShowHeader",false)
+      
 
         navigate("/mainpage");
 
@@ -66,8 +64,9 @@ const SignIn = () => {
         toast.info("You're signed in with google", {
           position: "top-center",
         });
+      
         navigate("/users");
-        sessionStorage.setItem("isShowHeader",false)
+    
       })
       .catch((error) => {
         toast.error("Failed while login with google", {
@@ -84,7 +83,7 @@ const SignIn = () => {
         toast.info("You're Signed in...", {
           position: "top-center",
         });
-        sessionStorage.setItem("isShowHeader",false)
+        
         navigate("/users");
       })
       .catch((error) => {
@@ -97,7 +96,7 @@ const SignIn = () => {
       
       
       <div className=" logindiv flex    justify-center items-center flex-col  py-3 bg-[#283042] ml-8 -mt-32 rounded-sm">
-        {/* <form> */}
+        
         <div>
           <MdOutlineEmail className="relative top-[29px] left-1 text-[#783FC7] " />
 
@@ -155,7 +154,7 @@ const SignIn = () => {
        
 
        
-        {/* </form> */}
+      
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import UsersContainer from "../components/UsersContainer";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserInfo } from "../components/store";
+import { setIsShowHeader, setUserInfo } from "../components/store";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -31,10 +31,13 @@ const Users = () => {
   };
 
   useEffect(() => {
+    dispatch(setIsShowHeader(false));
     findUser();
   }, []);
 
   return (
+    <>
+   
     <div className="bg-[#0D1117] min-h-[85vh] pt-4">
       <div className="flex justify-center items-center h-12">
         <input
@@ -55,6 +58,7 @@ const Users = () => {
       <UsersContainer users={users} />
       </div>
     </div>
+    </>
   );
 };
 export default Users;

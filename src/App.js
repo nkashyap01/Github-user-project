@@ -17,10 +17,9 @@ const App = () => {
     <Provider store={appStore}>
      
       <BrowserRouter>
-      <Logo />
+        <Logo/>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          
           <Route path="/users" element={<Users />} />
            <Route path="/users/:username"  element={<UserInfo/>} />
           <Route path="/mainpage" element={<MainPage />} />
