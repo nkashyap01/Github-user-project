@@ -65,7 +65,7 @@ const Logo = () => {
         </div>
 
         {isShowHeader && (
-          <div className={`flex ${!isShowHeader && 'hidden'}`}>
+          <div className={`flex ${!isShowHeader && 'hidden'} gap-3`}>
             <button
               onClick={() => {
                 dispatch(setIsShowSignup(false));
