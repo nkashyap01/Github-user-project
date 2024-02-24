@@ -27,7 +27,7 @@ const HomePage = () => {
                 <h1 className="text-8xl font-medium"> Let's build from here </h1>
                 <p className="text-gray-500 text-3xl pt-6">The world's leading AI-powered developer platform.</p>
                 <div className="pt-24 flex">
-                    <input type="text" placeholder="djfdf@gmail.com" className="py-3 px-11 rounded-l-md text-black placeholder-black" />
+                    <input type="text" placeholder="nehakashyap@gmail.com" className="py-3 px-11 rounded-l-md text-black placeholder-black" />
                     <button className="bg-[#7D43C4] text-white font-bold py-3 px-7 rounded-r-md text-md"> Sign Up for GitHub</button>
                     <div className='w-[1px] bg-slate-400 relative left-5'></div>
                     <button className="ml-9 py-3 px-8 text-white border border-[#7D43C4] rounded-md font-bold"> Start a free enterprise trial</button>
