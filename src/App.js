@@ -13,19 +13,26 @@ import MainPage from "./components/UserDetails/MainPage";
 import HomePage from "./components/Authentication/HomePage";
 
 const App = () => {
+
+
+
+
   return (
-    <Provider store={appStore}>
+    <div>
+      hii {process.env.REACT_APP_DEMO}
+    </div>
+    // <Provider store={appStore}>
      
-      <BrowserRouter>
-        <Logo/>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/users" element={<Users />} />
-           <Route path="/users/:username"  element={<UserInfo/>} />
-          <Route path="/mainpage" element={<MainPage />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    //   <BrowserRouter>
+    //     <Logo/>
+    //     <Routes>
+    //       <Route path="/" element={<HomePage />} />
+    //       <Route path="/users" element={<Users />} />
+    //        <Route path="/users/:username"  element={<UserInfo/>} />
+    //       <Route path="/mainpage" element={<MainPage />} />
+    //     </Routes>
+    //   </BrowserRouter>
+    // </Provider>
   );
 };
 
