@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoSearchSharp } from "react-icons/io5";
@@ -15,23 +15,34 @@ import { ReactComponent as PackageIcon } from "./Assests/packageicon.svg";
 import { ReactComponent as StarsIcon } from "./Assests/staricon.svg";
 import { ReactComponent as OverviewIcon } from "./Assests/overviewicon.svg";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../store";
+import { setCopyUserRepos, setUserInfo, setUserRepos } from "../store";
+import useFindUserInfo from "../../utils/useFindUserInfo";
+import useFetchRepos from "../../utils/useFetchRepos";
 
-const Heading = ({ publicRepos, avatarUrl,username }) => {
+const Heading = ({ publicRepos, avatarUrl, username }) => {
+  const [searchText, setSearchText] = useState(null);
 
-  const [searchText,setSearchText]=useState(null);
+  const dispatch = useDispatch();
 
-  const dispatch=useDispatch();
+  const findUser = async (searchText) => {
+    const res = await fetch(`https://api.github.com/users/${searchText}`);
+    const data = await res.json();
+    dispatch(setUserInfo(data));
+  };
 
-  const fetchUserInfo=async()=>{
-     const data= await fetch("https://api.github.com/users/"+searchText);
-     const json=await data.json();
+  const fetchRepos = async (searchText) => {
+    const res = await fetch(`https://api.github.com/users/${searchText}/repos`);
+    const data = await res.json();
 
-     dispatch(setUserInfo(json));
+    dispatch(setUserRepos(data));
+    dispatch(setCopyUserRepos(data));
+  };
 
-     sessionStorage.setItem('name',json.login)
-
-  }
+  const handleSearch = () => {
+    findUser(searchText);
+    fetchRepos(searchText);
+    setSearchText("")
+  };
 
 
   return (
@@ -49,16 +60,16 @@ const Heading = ({ publicRepos, avatarUrl,username }) => {
           <div className="flex items-center justify-center">
             <IoSearchSharp className="relative left-6  text-md text-white" />
             <input
-            onChange={(e)=>setSearchText(e.target.value)}
-              onKeyDown={(e)=>{
-                if(e.key=="Enter"){
-                  fetchUserInfo();
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch(); // Call handleSearch function on Enter key press
                 }
               }}
               type="text"
               placeholder="Type / to search"
               className="rounded-md border border-white bg-[#0A0C10] pl-8  py-1 w-[300px] text-white"
-           /> 
+            />
 
             <div className="flex border-l border-white text-white relative -left-8 items-center pl-1">
               <FaChevronRight />
