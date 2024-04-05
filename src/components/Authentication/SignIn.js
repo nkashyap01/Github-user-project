@@ -17,7 +17,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setName } from "../store";
-
+import { setIsShowSignin, setIsShowSignup } from "../store";
 
 const SignIn = () => {
   const [email, setemail] = useState("");
@@ -30,16 +30,18 @@ const SignIn = () => {
   const provider = new GoogleAuthProvider();
   const gitprovider = new GithubAuthProvider();
 
+  const isShowSignup = useSelector((store) => store.github.isShowSignup);
+  const isShowSignin = useSelector((store) => store.github.isShowSignin);
+
   const handleGithub = () => {
     signInWithPopup(auth, gitprovider)
       .then((result) => {
         const credential = GithubAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
 
-        const user = result.user
+        const user = result.user;
 
-        sessionStorage.setItem('name',user.reloadUserInfo.screenName);
-      
+        sessionStorage.setItem("name", user.reloadUserInfo.screenName);
 
         navigate("/mainpage");
 
@@ -64,9 +66,8 @@ const SignIn = () => {
         toast.info("You're signed in with google", {
           position: "top-center",
         });
-      
+
         navigate("/users");
-    
       })
       .catch((error) => {
         toast.error("Failed while login with google", {
@@ -83,20 +84,15 @@ const SignIn = () => {
         toast.info("You're Signed in...", {
           position: "top-center",
         });
-        
+
         navigate("/users");
       })
-      .catch((error) => {
-        
-      })
+      .catch((error) => {});
   };
 
   return (
     <div className=" flex justify-around items-center  ">
-      
-      
       <div className=" logindiv flex    justify-center items-center flex-col  py-3 bg-[#283042] ml-8 -mt-32 rounded-sm">
-        
         <div>
           <MdOutlineEmail className="relative top-[29px] left-1 text-[#783FC7] " />
 
@@ -118,24 +114,31 @@ const SignIn = () => {
             placeholder="Type your Password"
           />
         </div>
-        <button
-          onClick={(e) => {
-            handleLogin(e);
-          }}
-          className="relative z-50 m-5 text-white px-[100px]  py-3 bg-[#783FC7] rounded-md"
-        >
+        <button className="relative z-50 m-5 text-white px-[100px]  py-3 bg-[#783FC7] rounded-md">
           SignIn
         </button>
 
         <p className="text-white">
           {" "}
-          Don't have an account?<span className="text-[#783FC7]"> SignUp</span>
+          Don't have an account?
+          <span
+            onClick={() => {
+              dispatch(setIsShowSignin(false));
+              if (isShowSignup == false) {
+                dispatch(setIsShowSignup(true));
+              } else dispatch(setIsShowSignup(false));
+            }}
+            className="text-[#783FC7]"
+          >
+            {" "}
+            SignUp
+          </span>
         </p>
-        <div className="flex items-center justify-center"> 
+        <div className="flex items-center justify-center">
           <p className="h-[2px] w-24 bg-[#8144C5]"></p>
-          <p  className="px-1 text-white"> or</p>
+          <p className="px-1 text-white"> or</p>
           <p className="h-[2px] w-24 bg-[#8144C5]"></p>
-          </div>
+        </div>
 
         <button
           className="border-none text-white mt-3  px-[40px] rounded-md py-2 bg-[#783FC7]"
@@ -151,10 +154,6 @@ const SignIn = () => {
           <FcGoogle className="inline mr-2 text-xl  " />
           Sign in with Google{" "}
         </button>
-       
-
-       
-      
       </div>
     </div>
   );

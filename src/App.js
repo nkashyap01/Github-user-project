@@ -14,8 +14,7 @@ import HomePage from "./components/Authentication/HomePage";
 
 const App = () => {
 
-
-
+  console.log(process.env.REACT_APP_FIREBASE_KEY);
 
   return (
 

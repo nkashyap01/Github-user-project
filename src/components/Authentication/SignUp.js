@@ -6,9 +6,11 @@ import { FiUser } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setIsShowSignin, setIsShowSignup } from "../store";
 
 import { CiLock } from "react-icons/ci";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -16,6 +18,11 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const isShowSignup = useSelector((store) => store.github.isShowSignup);
+  const isShowSignin = useSelector((store) => store.github.isShowSignin);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -45,9 +52,7 @@ const SignUp = () => {
 
         navigate("/signin");
       })
-      .catch((error) => {
-       
-      });
+      .catch((error) => {});
   };
 
   const switchToSignin = () => {
@@ -55,69 +60,74 @@ const SignUp = () => {
   };
 
   return (
-  
-      <div className=" flex justify-around items-center ml-8 -mt-32 ">
-         
-        <div className="signdiv flex  justify-center items-center flex-col py-3 bg-[#283042] rounded-sm">
-          {/* <form> */}
-          <div>
-            <FiUser className="relative top-[25px] left-1 text-[#8144C5] " />
-            <input
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              value={name}
-              className="border border-[#8144C5] rounded pl-7 pr-8 py-1 bg-transparent placeholder-white "
-              placeholder="Enter Your name"
-            />
-          </div>
-          <div>
-            <MdOutlineEmail className="relative top-[25px] left-1 text-[#8144C5] " />
-            <input
-              onChange={(e) => setemail(e.target.value)}
-              type="text"
-              value={email}
-              className="pl-7 pr-8 py-1  border border-[#8144C5] rounded bg-transparent placeholder-white"
-              placeholder="Enter your mail"
-            />
-          </div>
-          <div>
-            <CiLock className="relative top-[25px] left-1  text-[#8144C5] text-md font-bold " />
-
-            <input
-              onChange={(e) => setpassword(e.target.value)}
-              type="password"
-              value={password}
-              className="pl-7 pr-8 py-1 border border-[#8144C5] rounded bg-transparent placeholder-white"
-              placeholder="create your Password"
-            />
-          </div>
-          <button
-            onClick={(e) => {
-              handleRegister(e);
-            }}
-            className="relative z-50 m-5 text-white px-[100px]  py-3 bg-[#8144C5] rounded-md "
-          >
-            SignUp
-          </button>
-          {/* </form> */}
-
-         <div className="flex items-center justify-center"> 
-          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
-          <p  className="px-1 text-white"> or</p>
-          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
-          </div>
-
-          <p className="text-white">
-            {" "}
-            Already have an account?
-            <span onClick={() => switchToSignin()} className="text-[#8144C5]">
-              {" "}
-              SignIn
-            </span>
-          </p>
+    <div className=" flex justify-around items-center ml-8 -mt-32 ">
+      <div className="signdiv flex  justify-center items-center flex-col py-3 bg-[#283042] rounded-sm">
+        {/* <form> */}
+        <div>
+          <FiUser className="relative top-[25px] left-1 text-[#8144C5] " />
+          <input
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            value={name}
+            className="border border-[#8144C5] rounded pl-7 pr-8 py-1 bg-transparent placeholder-white "
+            placeholder="Enter Your name"
+          />
         </div>
+        <div>
+          <MdOutlineEmail className="relative top-[25px] left-1 text-[#8144C5] " />
+          <input
+            onChange={(e) => setemail(e.target.value)}
+            type="text"
+            value={email}
+            className="pl-7 pr-8 py-1  border border-[#8144C5] rounded bg-transparent placeholder-white"
+            placeholder="Enter your mail"
+          />
+        </div>
+        <div>
+          <CiLock className="relative top-[25px] left-1  text-[#8144C5] text-md font-bold " />
+
+          <input
+            onChange={(e) => setpassword(e.target.value)}
+            type="password"
+            value={password}
+            className="pl-7 pr-8 py-1 border border-[#8144C5] rounded bg-transparent placeholder-white"
+            placeholder="create your Password"
+          />
+        </div>
+        <button
+          onClick={(e) => {
+            handleRegister(e);
+          }}
+          className="relative z-50 m-5 text-white px-[100px]  py-3 bg-[#8144C5] rounded-md "
+        >
+          SignUp
+        </button>
+        {/* </form> */}
+
+        <div className="flex items-center justify-center">
+          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
+          <p className="px-1 text-white"> or</p>
+          <p className="h-[2px] w-24 bg-[#8144C5]"></p>
+        </div>
+
+        <p className="text-white">
+          {" "}
+          Already have an account?
+          <span
+            onClick={() => {
+              dispatch(setIsShowSignup(false));
+              if (isShowSignin == false) {
+                dispatch(setIsShowSignin(true));
+              } else dispatch(setIsShowSignin(false));
+            }}
+            className="text-[#8144C5]"
+          >
+            {" "}
+            SignIn
+          </span>
+        </p>
       </div>
-     
+    </div>
   );
 };
 
